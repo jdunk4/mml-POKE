@@ -20,7 +20,6 @@
   },
 "overrides": {
   "@exodus/bytes": "1.15.0",
-  "html-encoding-sniffer": "3.0.0",
-  "webidl-conversions": "7.0.0"
+  "jsdom": "20.0.3"
 }
 }
