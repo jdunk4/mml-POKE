@@ -1,0 +1,97 @@
+<m-group id="pokemon-group">
+  <!--
+    HITMONLEE VARIANTS - Arweave Transaction IDs
+    ─────────────────────────────────────────────────────
+    106-HITMONLEE                       1jRkLS7aBl0QGFxVDJujkwpMXp1X32S5QxtKGUKtFEw
+    106-HITMONLEE-SHINY                 4CQn-JBmAXRDhZD7t3-J42scJfJxjTfgtpDcmKwO2Jc
+    Full asset list: https://cdn.jsdelivr.net/gh/jdunk4/mml-POKE@main/src/assets.json
+    To swap Pokémon: update variantKeys array in the script below
+    ─────────────────────────────────────────────────────
+  -->
+  <m-model id="variant-0" ry="180" anim-enabled="true" anim-loop="true" anim-start-time="0" visible="true"></m-model>
+  <m-model id="variant-1" ry="180" anim-enabled="true" anim-loop="true" anim-start-time="0" visible="false"></m-model>
+  <m-cube id="trigger" visible="false" y="1" sx="2" sy="2" sz="2"></m-cube>
+  <!-- trigger: click the invisible cube hovering over the model to cycle through variants -->
+</m-group>
+
+<script>
+  /*
+    GATEWAY FALLBACK CHAIN
+    Tries each gateway in order — first healthy one wins.
+    To add more gateways, append to the GATEWAYS array.
+  */
+  const GATEWAYS = [
+    "https://turbo-gateway.com",
+    "https://arweave.net",
+    "https://permagate.io",
+    "https://ar-io.dev",
+    "https://g8way.io",
+    "https://gateway.irys.xyz",
+    "https://arweave.dev",
+    "https://arw.ac",
+    "https://arweave.live",
+    "https://gateway.ar-io.dev",
+  ];
+
+  /*
+    VARIANT KEYS
+    Any key from assets.json can go here.
+  */
+  const variantKeys = [
+    "106-HITMONLEE",           // txId: 1jRkLS7aBl0QGFxVDJujkwpMXp1X32S5QxtKGUKtFEw
+    "106-HITMONLEE-SHINY",           // txId: 4CQn-JBmAXRDhZD7t3-J42scJfJxjTfgtpDcmKwO2Jc
+  ];
+
+  async function resolveGateway(testTxId) {
+    for (const gateway of GATEWAYS) {
+      try {
+        const res = await fetch(`${gateway}/${testTxId}`, {
+          method: "HEAD",
+          signal: AbortSignal.timeout(4000)
+        });
+        if (res.ok) return gateway;
+      } catch {
+        // try next
+      }
+    }
+    return GATEWAYS[0]; // last resort
+  }
+
+  async function loadModels(assets) {
+    const testTxId = assets.POKE[variantKeys[0]];
+    const gateway = await resolveGateway(testTxId);
+
+    variantKeys.forEach((key, i) => {
+      const txId = assets.POKE[key];
+      if (txId) {
+        const url = `${gateway}/${txId}`;
+        const el = document.getElementById(`variant-${i}`);
+        el.setAttribute("src", url);
+        el.setAttribute("anim", url);
+      }
+    });
+  }
+
+  fetch("https://cdn.jsdelivr.net/gh/jdunk4/mml-POKE@main/src/assets.json")
+    .then(r => r.json())
+    .then(assets => loadModels(assets));
+
+  let current = 0;
+  const trigger = document.getElementById("trigger");
+
+  trigger.addEventListener("click", () => {
+    document.getElementById(`variant-${current}`).setAttribute("visible", "false");
+    current = (current + 1) % variantKeys.length;
+    document.getElementById(`variant-${current}`).setAttribute("visible", "true");
+  });
+</script>
+
+<!--
+  Original models by Cobbled Studios / the Cobblemon team!
+  License: https://creativecommons.org/licenses/by-nc/3.0/legalcode
+  Converted from JSON to GLTF &
+  hosted on Arweave and uploaded to MML by JDUNK.
+
+  Full attribution on Arweave:
+  https://arweave.net/4WAQoENokcHstGW82aJ1OJ33UXMHz8_2LQhVPZZAe4E
+-->

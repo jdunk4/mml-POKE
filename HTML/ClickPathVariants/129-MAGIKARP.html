@@ -1,0 +1,130 @@
+<m-group id="pokemon-group">
+  <!--
+    MAGIKARP VARIANTS - Arweave Transaction IDs
+    ─────────────────────────────────────────────────────
+    129-MAGIKARP                        ZdTLkO7GTxx2cx1CYvxYVZP3Sesf2tK_l9Ofg2XYgwA
+    129-MAGIKARP-APRICOT                Zbbd9aVuyN8Fny1sm1hFxoBgXIUXwXBH-58vpYM0_QI
+    129-MAGIKARP-BLACK-MASK             PTxzqWwB-LkSjwHSfxxpIGzMzJp9velANcvLigBgjeg
+    129-MAGIKARP-BLUERAIN               lkdrlxHL4SNFBQMigxJoFFjdNOqRRMD7E1JNiDBc17k
+    129-MAGIKARP-BROWNZEBRA             IcdNStgS9dK4vvxouMW-Qzn7vyL9cdpqc5FlVWpy7ms
+    129-MAGIKARP-CALICAO                QpYdpW9UOwz7So0lB29oNFp8z4gCLOAzYIqEnvE-77g
+    129-MAGIKARP-GRAY                   kbLH9e2KEkGMymPXeeTlYzUh12IFMhISLA8fanN6cDw
+    129-MAGIKARP-ORANGE-MASK            H4il01qE7DI-EHM7Rnd4qQ-GG1PDSKGDdUg4EUlKDiA
+    129-MAGIKARP-PINK                   5MbBGmVg0dPZITAgy2YUSuyFxGA4FHLWN_xIxXDDxgI
+    129-MAGIKARP-PURPLE                 48PfNE8VWZLylkhBWbQkZSVYdP-ffVcT2EdkG-0dj8Y
+    129-MAGIKARP-SKELLY                 bEBrA62FyoHWMpEb5hEaGy_VGR85Xa6NBi_oVWlY4vo
+    129-MAGIKARP-VIOLET                 z0kEMrTmtnd-CXGCWKhrPBzveG5NKMpTMGHgl-Yz828
+    129-MAGIKARP-SHINY                  BpqdC7MTMdG4k9ZlA7Lsg7XHKPCPDSoFbzShXCpTnc0
+    Full asset list: https://cdn.jsdelivr.net/gh/jdunk4/mml-POKE@main/src/assets.json
+    To swap Pokémon: update variantKeys array in the script below
+    ─────────────────────────────────────────────────────
+  -->
+  <m-model id="variant-0" ry="180" anim-enabled="true" anim-loop="true" anim-start-time="0" visible="true"></m-model>
+  <m-model id="variant-1" ry="180" anim-enabled="true" anim-loop="true" anim-start-time="0" visible="false"></m-model>
+  <m-model id="variant-2" ry="180" anim-enabled="true" anim-loop="true" anim-start-time="0" visible="false"></m-model>
+  <m-model id="variant-3" ry="180" anim-enabled="true" anim-loop="true" anim-start-time="0" visible="false"></m-model>
+  <m-model id="variant-4" ry="180" anim-enabled="true" anim-loop="true" anim-start-time="0" visible="false"></m-model>
+  <m-model id="variant-5" ry="180" anim-enabled="true" anim-loop="true" anim-start-time="0" visible="false"></m-model>
+  <m-model id="variant-6" ry="180" anim-enabled="true" anim-loop="true" anim-start-time="0" visible="false"></m-model>
+  <m-model id="variant-7" ry="180" anim-enabled="true" anim-loop="true" anim-start-time="0" visible="false"></m-model>
+  <m-model id="variant-8" ry="180" anim-enabled="true" anim-loop="true" anim-start-time="0" visible="false"></m-model>
+  <m-model id="variant-9" ry="180" anim-enabled="true" anim-loop="true" anim-start-time="0" visible="false"></m-model>
+  <m-model id="variant-10" ry="180" anim-enabled="true" anim-loop="true" anim-start-time="0" visible="false"></m-model>
+  <m-model id="variant-11" ry="180" anim-enabled="true" anim-loop="true" anim-start-time="0" visible="false"></m-model>
+  <m-model id="variant-12" ry="180" anim-enabled="true" anim-loop="true" anim-start-time="0" visible="false"></m-model>
+  <m-cube id="trigger" visible="false" y="1" sx="2" sy="2" sz="2"></m-cube>
+  <!-- trigger: click the invisible cube hovering over the model to cycle through variants -->
+</m-group>
+
+<script>
+  /*
+    GATEWAY FALLBACK CHAIN
+    Tries each gateway in order — first healthy one wins.
+    To add more gateways, append to the GATEWAYS array.
+  */
+  const GATEWAYS = [
+    "https://turbo-gateway.com",
+    "https://arweave.net",
+    "https://permagate.io",
+    "https://ar-io.dev",
+    "https://g8way.io",
+    "https://gateway.irys.xyz",
+    "https://arweave.dev",
+    "https://arw.ac",
+    "https://arweave.live",
+    "https://gateway.ar-io.dev",
+  ];
+
+  /*
+    VARIANT KEYS
+    Any key from assets.json can go here.
+  */
+  const variantKeys = [
+    "129-MAGIKARP",           // txId: ZdTLkO7GTxx2cx1CYvxYVZP3Sesf2tK_l9Ofg2XYgwA
+    "129-MAGIKARP-APRICOT",           // txId: Zbbd9aVuyN8Fny1sm1hFxoBgXIUXwXBH-58vpYM0_QI
+    "129-MAGIKARP-BLACK-MASK",           // txId: PTxzqWwB-LkSjwHSfxxpIGzMzJp9velANcvLigBgjeg
+    "129-MAGIKARP-BLUERAIN",           // txId: lkdrlxHL4SNFBQMigxJoFFjdNOqRRMD7E1JNiDBc17k
+    "129-MAGIKARP-BROWNZEBRA",           // txId: IcdNStgS9dK4vvxouMW-Qzn7vyL9cdpqc5FlVWpy7ms
+    "129-MAGIKARP-CALICAO",           // txId: QpYdpW9UOwz7So0lB29oNFp8z4gCLOAzYIqEnvE-77g
+    "129-MAGIKARP-GRAY",           // txId: kbLH9e2KEkGMymPXeeTlYzUh12IFMhISLA8fanN6cDw
+    "129-MAGIKARP-ORANGE-MASK",           // txId: H4il01qE7DI-EHM7Rnd4qQ-GG1PDSKGDdUg4EUlKDiA
+    "129-MAGIKARP-PINK",           // txId: 5MbBGmVg0dPZITAgy2YUSuyFxGA4FHLWN_xIxXDDxgI
+    "129-MAGIKARP-PURPLE",           // txId: 48PfNE8VWZLylkhBWbQkZSVYdP-ffVcT2EdkG-0dj8Y
+    "129-MAGIKARP-SKELLY",           // txId: bEBrA62FyoHWMpEb5hEaGy_VGR85Xa6NBi_oVWlY4vo
+    "129-MAGIKARP-VIOLET",           // txId: z0kEMrTmtnd-CXGCWKhrPBzveG5NKMpTMGHgl-Yz828
+    "129-MAGIKARP-SHINY",           // txId: BpqdC7MTMdG4k9ZlA7Lsg7XHKPCPDSoFbzShXCpTnc0
+  ];
+
+  async function resolveGateway(testTxId) {
+    for (const gateway of GATEWAYS) {
+      try {
+        const res = await fetch(`${gateway}/${testTxId}`, {
+          method: "HEAD",
+          signal: AbortSignal.timeout(4000)
+        });
+        if (res.ok) return gateway;
+      } catch {
+        // try next
+      }
+    }
+    return GATEWAYS[0]; // last resort
+  }
+
+  async function loadModels(assets) {
+    const testTxId = assets.POKE[variantKeys[0]];
+    const gateway = await resolveGateway(testTxId);
+
+    variantKeys.forEach((key, i) => {
+      const txId = assets.POKE[key];
+      if (txId) {
+        const url = `${gateway}/${txId}`;
+        const el = document.getElementById(`variant-${i}`);
+        el.setAttribute("src", url);
+        el.setAttribute("anim", url);
+      }
+    });
+  }
+
+  fetch("https://cdn.jsdelivr.net/gh/jdunk4/mml-POKE@main/src/assets.json")
+    .then(r => r.json())
+    .then(assets => loadModels(assets));
+
+  let current = 0;
+  const trigger = document.getElementById("trigger");
+
+  trigger.addEventListener("click", () => {
+    document.getElementById(`variant-${current}`).setAttribute("visible", "false");
+    current = (current + 1) % variantKeys.length;
+    document.getElementById(`variant-${current}`).setAttribute("visible", "true");
+  });
+</script>
+
+<!--
+  Original models by Cobbled Studios / the Cobblemon team!
+  License: https://creativecommons.org/licenses/by-nc/3.0/legalcode
+  Converted from JSON to GLTF &
+  hosted on Arweave and uploaded to MML by JDUNK.
+
+  Full attribution on Arweave:
+  https://arweave.net/4WAQoENokcHstGW82aJ1OJ33UXMHz8_2LQhVPZZAe4E
+-->
